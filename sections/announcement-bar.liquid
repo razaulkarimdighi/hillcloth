@@ -1,7 +1,9 @@
 <div>
   <div class="container">
     <p class="annoucement-text text-center">
-      {{ section.settings.message }}
+        {% if section.settings.show_announcement %}
+            {{ section.settings.message }}
+        {% endif %}
     </p>
   </div>
 </div>
@@ -15,6 +17,12 @@
             "id":"message",
             "label":"Announcement Text",
             "default": "25% OFF for US based delivery"
+        },
+        {
+            "type": "checkbox",
+            "id": "show_announcement",
+            "label": "Show Announcement Bar",
+            "default":false
         }
     ]
   }
