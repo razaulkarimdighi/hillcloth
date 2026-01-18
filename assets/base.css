@@ -1,12 +1,27 @@
-html{
-    margin: 0;
+html {
+  margin: 0;
 }
-.announcement{
-    background-color: var(--bg-color);
-    padding: var(--padding);
-    color: var(--text-color);
+.announcement {
+  background-color: var(--bg-color);
+  padding: var(--padding);
+  color: var(--text-color);
 }
-.announcement p{
-    margin-bottom: 0;
-    text-align: var(--text-align);
+.announcement p {
+  margin-bottom: 0;
+  text-align: var(--text-align);
+}
+/* image banner */
+.image-banner-main{
+  position: relative;
+}
+.banner-content {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* featured collection */
+.card-body svg, .card-body img{
+  width: 100%;
+  height: auto;
 }
