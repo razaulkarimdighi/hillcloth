@@ -25,3 +25,7 @@ html {
   width: 100%;
   height: auto;
 }
+/* image-with-text */
+.image-with-text text{
+  justify-content: center;
+}

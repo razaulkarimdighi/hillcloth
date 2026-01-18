@@ -1,0 +1,213 @@
+<style>
+  .lookbook-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 1500px;
+    margin: 0 auto;
+  }
+
+  .lookbook-wrapper img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* HOTSPOT BUTTON */
+  .lookbook-hotspot {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    background: #111;
+    color: #fff;
+    border-radius: 50%;
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 9999;
+    transition: 0.2s;
+    transform: translate(-50%, -50%);
+  }
+
+  .lookbook-hotspot:hover {
+    background: #ff4e4e;
+  }
+
+  /* POPUP LANDSCAPE RESPONSIVE */
+  .lookbook-popup {
+    position: absolute;
+    background: #fff;
+    width: 320px;
+    max-width: 90%;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+    display: none;
+    z-index: 10000;
+    transform: translateX(-50%);
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap; /* wrap content on smaller screens */
+  }
+
+  .lookbook-popup img {
+    width: 40%;
+    max-width: 120px;
+    height: auto;
+    border-radius: 8px;
+    flex-shrink: 0;
+  }
+
+  .lookbook-popup .popup-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1;
+    min-width: 50%;
+  }
+
+  .lookbook-popup .close-btn {
+    position: absolute;
+    top: 5px;
+    right: 8px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  .lookbook-popup h4 {
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+
+  .lookbook-popup .price {
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .lookbook-popup a {
+    display: inline-block; /* allows padding but fits text width */
+      background: #111;
+      color: #fff;
+      padding: 6px 8px; /* reduce horizontal padding or set to 0 */
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 14px;
+      width: auto; /* ensures it wraps text only */
+      text-align: center; /* optional, keeps text centered */
+  }
+
+  /* MOBILE RESPONSIVE */
+ @media (max-width: 480px) {
+  .lookbook-popup {
+    width: 90%;
+    left: 50% !important; /* center on screen */
+    transform: translateX(-50%);
+    top: auto !important;  /* adjust later if needed */
+    bottom: 10px;          /* optional, ensure it’s visible */
+  }
+}
+
+</style>
+
+<div class="lookbook-wrapper">
+  {% if section.settings.main_image != blank %}
+  {{ section.settings.main_image | image_url: width: 1600 | image_tag: alt: section.settings.title, sizes: "(max-width: 480px) 100vw, (max-width: 768px) 100vw, (max-width: 992px) 100vw, (max-width: 1200px) 100vw, 1600px" }}
+{% else %}
+  {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+{% endif %}
+
+
+  {% for block in section.blocks %}
+    {% assign product = block.settings.product %}
+
+    <!-- HOTSPOT -->
+    <div
+      class="lookbook-hotspot"
+      style="top: {{ block.settings.pos_y }}%; left: {{ block.settings.pos_x }}%;"
+      onclick="togglePopup('lb-popup-{{ block.id }}')"
+    >
+      +
+    </div>
+
+    <!-- POPUP -->
+    <div
+      id="lb-popup-{{ block.id }}"
+      class="lookbook-popup"
+      style="top: calc({{ block.settings.pos_y }}% + 40px); left: {{ block.settings.pos_x }}%;"
+    >
+      <div class="close-btn" onclick="document.getElementById('lb-popup-{{ block.id }}').style.display='none'">✕</div>
+
+      {% if product %}
+        <img src="{{ product.featured_image | img_url: '300x' }}">
+        <div class="popup-content">
+          <h4>{{ product.title }}</h4>
+          <div class="price">{{ product.price | money }}</div>
+          <a href="{{ product.url }}">View Product</a>
+        </div>
+      {% else %}
+        <p>No product selected.</p>
+      {% endif %}
+    </div>
+  {% endfor %}
+</div>
+
+<script>
+  function togglePopup(id) {
+    const popup = document.getElementById(id);
+    if (popup.style.display === 'flex') {
+      popup.style.display = 'none';
+    } else {
+      popup.style.display = 'flex';
+    }
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Lookbook Hotspot",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "main_image",
+      "label": "Lookbook Image"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "spot",
+      "name": "Hotspot",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Select Product"
+        },
+        {
+          "type": "range",
+          "id": "pos_x",
+          "label": "Position Left (%)",
+          "min": 0,
+          "max": 100,
+          "default": 50
+        },
+        {
+          "type": "range",
+          "id": "pos_y",
+          "label": "Position Top (%)",
+          "min": 0,
+          "max": 100,
+          "default": 50
+        }
+      ]
+    }
+  ],
+  "max_blocks": 10,
+  "presets": [
+    {
+      "name": "Lookbook Hotspot"
+    }
+  ]
+}
+{% endschema %}
