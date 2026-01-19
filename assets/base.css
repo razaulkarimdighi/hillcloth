@@ -29,3 +29,20 @@ html {
 .image-with-text text{
   justify-content: center;
 }
+.wrapper{
+  padding: 0 15px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+  gap: 50px;
+}
+.wrapper .image{
+  width: 50%;
+  max-width: 1600px;
+  object-fit: cover;
+  vertical-align: middle;
+}
+.wrapper .text{
+  flex: 1;
+}
