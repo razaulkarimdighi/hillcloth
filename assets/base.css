@@ -30,7 +30,7 @@ html {
   justify-content: center;
 }
 .wrapper{
-  padding: 0 15px;
+  padding: 0 100px;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -45,4 +45,40 @@ html {
 }
 .wrapper .text{
   flex: 1;
+}
+/* happy customer section */
+.happy-customer{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 20px;
+}
+
+.happy-customer .content{
+  height: 200px;
+  width: 200px;
+  background-color: rgb(228, 228, 228);
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative
+  
+}
+.happy-customer .content .text{
+  position: absolute;
+  background-color: red;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.happy-customer .content:hover .text{
+  opacity: 1;
+}
+
+.placeholder-200{
+  width: 200px;
+  height: auto;
 }

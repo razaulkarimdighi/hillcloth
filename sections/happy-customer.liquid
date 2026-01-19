@@ -1,0 +1,62 @@
+<div class="happy-customer">
+    {% for block in section.blocks %}
+        <div class="content">
+            <div class="text">
+                {% if block.settings.customer_name != blank %}
+                    {{ block.settings.customer_name }}
+                    {% else %}
+                    Name
+                {% endif %}
+            </div>
+            <div class="image">
+                {% if block.settings.image != blank %}
+                {{ block.settings.image
+                | image_url: width: 200
+                | image_tag: class: 'img-fluid full-image'
+                }}
+                {% else %}
+                {{ 'collection-apparel-1' | placeholder_svg_tag: 'placeholder-svg placeholder-200' }}
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %} 
+</div>
+
+{% schema %}
+{
+"name": "Happy-Customer",
+"settings": [],
+"blocks": [
+{
+"type": "happy_customer",
+"name": "happy_customer",
+"limit": 6,
+"settings": [
+{
+"type": "image_picker",
+"id": "image",
+"label": "Image"
+},
+{
+"type": "text",
+"id": "customer_name",
+"label": "Customer Name"
+}
+]
+}
+],
+"presets": [
+{
+"name": "Happy Customer",
+"category": "Customer",
+"blocks": [
+{ "type": "happy_customer" },
+{ "type": "happy_customer" },
+{ "type": "happy_customer" },
+{ "type": "happy_customer" },
+{ "type": "happy_customer" },
+{ "type": "happy_customer" }
+]
+}]
+}
+{% endschema %}
