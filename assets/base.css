@@ -1,12 +1,84 @@
-html{
-    margin: 0;
+html {
+  margin: 0;
 }
-.announcement{
-    background-color: var(--bg-color);
-    padding: var(--padding);
-    color: var(--text-color);
+.announcement {
+  background-color: var(--bg-color);
+  padding: var(--padding);
+  color: var(--text-color);
 }
-.announcement p{
-    margin-bottom: 0;
-    text-align: var(--text-align);
+.announcement p {
+  margin-bottom: 0;
+  text-align: var(--text-align);
+}
+/* image banner */
+.image-banner-main{
+  position: relative;
+}
+.banner-content {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* featured collection */
+.card-body svg, .card-body img{
+  width: 100%;
+  height: auto;
+}
+/* image-with-text */
+.image-with-text text{
+  justify-content: center;
+}
+.wrapper{
+  padding: 0 100px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+  gap: 50px;
+}
+.wrapper .image{
+  width: 50%;
+  max-width: 1600px;
+  object-fit: cover;
+  vertical-align: middle;
+}
+.wrapper .text{
+  flex: 1;
+}
+/* happy customer section */
+.happy-customer{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 20px;
+}
+
+.happy-customer .content{
+  height: 200px;
+  width: 200px;
+  background-color: rgb(228, 228, 228);
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative
+  
+}
+.happy-customer .content .text{
+  position: absolute;
+  background-color: red;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.happy-customer .content:hover .text{
+  opacity: 1;
+}
+
+.placeholder-200{
+  width: 200px;
+  height: auto;
 }

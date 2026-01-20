@@ -1,0 +1,84 @@
+{% comment %} <div class="container image-with-text mt-3">
+    <div class="row row-height">
+        <div class="col-md-6 image">
+            {% if section.settings.image != blank %}
+            {{ section.settings.image
+            | image_url: width: 1600
+            | image_tag: class: 'img-fluid full-image'
+            }}
+            {% else %}
+            {{ 'collection-apparel-1' | placeholder_svg_tag: 'placeholder-svg full-image' }}
+            {% endif %}
+        </div>
+        <div class="col-md-6">
+            <div class="text d-flex flex-column justify-content-center">
+                <h2 class="title">
+                    {% if section.settings.title %}
+                    {{ section.settings.title }}
+                    {% endif %}
+                </h2>
+                <p class="description">
+                    {% if section.settings.description %}
+                    {{ section.settings.description }}
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+    </div>
+</div> {% endcomment %}
+
+<div class="wrapper">
+    <div class="image">
+        {% if section.settings.image != blank %}
+        {{ section.settings.image
+        | image_url: width: 1600
+        | image_tag: class: 'img-fluid full-image'
+        }}
+        {% else %}
+        {{ 'collection-apparel-1' | placeholder_svg_tag: 'placeholder-svg full-image' }}
+        {% endif %}
+    </div>
+    <div class="text">
+        <h2 class="title">
+            {% if section.settings.title %}
+            {{ section.settings.title }}
+            {% endif %}
+        </h2>
+        <p class="description">
+            {% if section.settings.description %}
+            {{ section.settings.description }}
+            {% endif %}
+        </p>
+    </div>
+</div>
+
+{% schema %}
+{
+"name": "Image_with_text",
+"settings": [
+{
+"type": "image_picker",
+"id": "image",
+"label": "Image"
+},
+{
+"type": "text",
+"id": "title",
+"label": "Title",
+"default": "Title"
+},
+{
+"type": "richtext",
+"id": "description",
+"label": "Description",
+"default": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut at turpis malesuada, feugiat orci in, semper nisl. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas</p>"
+}
+],
+"presets": [
+{
+"name": "Image with Text",
+"category": "Image"
+}
+]
+}
+{% endschema %}
