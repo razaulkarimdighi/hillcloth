@@ -1,25 +1,41 @@
+{% assign colorString = settings.color_defination %}
+{% assign colorCodeArry = colorString | split:', '%}
+
 <div class="product_variants">
     {% unless product.has_only_default_variant %}
-        <div class="product_options">
-        {% for option in product.options_with_values %}
+    <div class="product_options">
+     {% for option in product.options_with_values %}
         <strong>{{ option.name }}</strong>
         <br>
         {% if variant_type == "pills" %}
+        {% if option.name == "Color" and settings.enable_color_swatch %}
         {% for value in option.values %}
+
 
         <label class="variant-pill">
             <input type="radio" id="{{ value.name |  downcase | replace:' ','_'}}"
-                name="{{ option.name | downcase | replace:' ','_'}}" value="{{ value | downcase | replace:' ','_' }}" {% if option.selected_value %}checked{% endif %}>
+                name="{{ option.name | downcase | replace:' ','_'}}" value="{{ value | downcase | replace:' ','_' }}" {%
+                if option.selected_value %}checked{% endif %}>
             <span class="variant-button">{{ value.name }}</span>
         </label>
         {% endfor %}
         {% else %}
+        {% for value in option.values %}
+        <label class="variant-pill">
+            <input type="radio" id="{{ value.name |  downcase | replace:' ','_'}}"
+                name="{{ option.name | downcase | replace:' ','_'}}" value="{{ value | downcase | replace:' ','_' }}" {%
+                if option.selected_value %}checked{% endif %}>
+            <span class="variant-button">{{ value.name }}</span>
+        </label>
+        {% endfor %}
+        {% endif %}
+        {% else %}
         <div class="variant-selector">
             <select class="variant_select w-50 form-control">
                 {% for value in option.values %}
-                    <option value="{{ value .name }}" {% if option.selected_value %}selected{% endif %}>
-                        {{ value.name }}
-                    </option>
+                <option value="{{ value .name }}" {% if option.selected_value %}selected{% endif %}>
+                    {{ value.name }}
+                </option>
                 {% endfor %}
             </select>
 
@@ -33,7 +49,7 @@
     </div>
     <select name="id" class="variants">
         {% for variant in product.variants %}
-        <option value="{{ variant.id }}">
+        <option value="{{ variant.id }}" data-available="{{ variant.available }}">
             {{ variant.title }}
         </option>
         {% endfor %}

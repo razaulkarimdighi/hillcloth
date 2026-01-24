@@ -30,7 +30,15 @@ $(document).ready(function () {
     updateSeclection();
 
     var currentVariant =  $(".variants").val();
-    console.log(currentVariant)
+    var variantAvailable = $(".variants").find("option:selected").data('available');
+    if(variantAvailable == false){
+      $(".cart-buttons > button").prop('disabled', true);
+      $(".cart-buttons > button").text('Not Available');
+    }
+    else{
+      $(".cart-buttons > button").prop('disabled', false);
+      $(".cart-buttons > button").text('Add to Cart');
+    }
     selectedVariant('variant', currentVariant);
   });
 
