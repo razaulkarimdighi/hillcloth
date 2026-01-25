@@ -1,5 +1,5 @@
 {% assign colorString = settings.color_defination %}
-{% assign colorCodeArry = colorString | split:', '%}
+{% assign colorCodeArry = colorString | split:','%}
 
 <div class="product_variants">
     {% unless product.has_only_default_variant %}
@@ -9,14 +9,20 @@
         <br>
         {% if variant_type == "pills" %}
         {% if option.name == "Color" and settings.enable_color_swatch %}
-        {% for value in option.values %}
-
-
+        {% for color in option.values %}
+            {% assign colorValue = color | downcase %}
+            {% assign colorCodeValue = colorValue %}
+            {% for colorCode in colorCodeArry %}
+                {% assign colorCodePair = colorCode | split: " | " %}
+                {% if colorValue == colorCodePair[0] %}
+                    {% assign colorCodeValue = colorCodePair[1] %}
+                {% endif %}
+            {% endfor %}
         <label class="variant-pill">
-            <input type="radio" id="{{ value.name |  downcase | replace:' ','_'}}"
-                name="{{ option.name | downcase | replace:' ','_'}}" value="{{ value | downcase | replace:' ','_' }}" {%
-                if option.selected_value %}checked{% endif %}>
-            <span class="variant-button">{{ value.name }}</span>
+            <input type="radio" id="{{ color.name |  downcase | replace:' ','_'}}"
+                name="{{ option.name | downcase | replace:' ','_'}}" value="{{ color | downcase | replace:' ','_' }}" {%
+                if option.selected_value == value %}checked{% endif %}>
+            <span class="variant-button swatch" style="background-color: {{ colorCodeValue  }};"></span>
         </label>
         {% endfor %}
         {% else %}
@@ -38,8 +44,6 @@
                 </option>
                 {% endfor %}
             </select>
-
-
         </div>
 
         {% endif %}
