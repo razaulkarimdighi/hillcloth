@@ -1,3 +1,4 @@
+<div class="cart-drawer-main">
 {% form 'cart', cart %}
 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
     <div class="offcanvas-header">
@@ -5,7 +6,7 @@
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <div class="cart-items"></div>
+        <div class="cart-items">
         <table class="table">
             {% for item in cart.items %}
             <tr class="item">
@@ -36,6 +37,7 @@
             </tr>
             {% endfor %}
         </table>
+        </div>
     </div>
     <div class="offcanvas-footer p-4">
         <div class="cart-footer">
@@ -50,3 +52,4 @@
     </div>
 </div>
 {% endform %}
+</div>
