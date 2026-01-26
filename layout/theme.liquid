@@ -46,6 +46,9 @@
     </a>
 
     {% comment %} Cart Drawer {% endcomment %}
+    {% if settings.cart_type == 'drawer' %}
+      {%  section 'cart-drawer' %}
+    {% endif %}
 
     {% comment %} Header group sections {% endcomment %}
      {%  sections 'header-group' %}

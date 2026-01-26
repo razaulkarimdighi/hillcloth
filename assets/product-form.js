@@ -11,7 +11,10 @@ $(document).ready(function () {
         dataType: "json",
         data: formData,
         success: function (data) {
-          console.log("Added to cart:", data);
+          console.log(data);
+          var offcanvasEl = document.getElementById("offcanvasRight");
+          var bsOffcanvas = new bootstrap.Offcanvas(offcanvasEl);
+          bsOffcanvas.show();
         },
         error: function (xhr, status, error) {
           console.log("Add to cart error!");
