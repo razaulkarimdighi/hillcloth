@@ -1,9 +1,52 @@
+{% form 'cart', cart %}
 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-  <div class="offcanvas-header">
-    <h5 id="offcanvasRightLabel">Offcanvas right</h5>
-    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-  </div>
-  <div class="offcanvas-body">
-   Cart Body
-  </div>
+    <div class="offcanvas-header">
+        <h5 id="offcanvasRightLabel">Cart &bull; {{ cart.item_count }}</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <div class="cart-items"></div>
+        <table class="table">
+            {% for item in cart.items %}
+            <tr class="item">
+                <td class="item-img">
+                    <img src="{{ item.image |  img_url:'80x' }}" alt="{{ item.title }}">
+                </td>
+                <td class="item-info">
+                    <p class="item-title">{{ item.product.title }}</p>
+                    {% unless item.product.has_only_default_variant %}
+                    {% for option in item.options_with_values %}
+                    <small class="Item-option">{{ option.value }}</small>
+                    {% unless forloop.last %}
+                    /
+                    {% endunless %}
+                    {% endfor %}
+                    {% endunless %}
+                    <div class="item-quantity">
+                        <lable> Quantity </lable>
+                        <input type="number" value="{{ item.quantity }}" name="quantity" data-line="{{ forloop.index }}">
+                    </div>
+                </td>
+                <td class="item-action">
+                    <a href="#" data-line="{{ forloop.index }}">
+                        Remove
+                    </a>
+                    <p class="item-price">{{ item.line_price | money }}</p>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="offcanvas-footer p-4">
+        <div class="cart-footer">
+            <div class="cart-subtotal d-flex justify-content-between">
+                <h4 class="subtotal-text">Subtotal: </h4>
+                <h4 class="subtotal">{{ cart.total_price | money }}</h4>
+            </div>
+        </div>
+        <div class="checkout-option">
+            <button type="submit" name="checkout" class="btn btn-primary w-100">Checkout</button>
+        </div>
+    </div>
 </div>
+{% endform %}

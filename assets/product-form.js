@@ -12,9 +12,9 @@ $(document).ready(function () {
         data: formData,
         success: function (data) {
           console.log(data);
-          var offcanvasEl = document.getElementById("offcanvasRight");
-          var bsOffcanvas = new bootstrap.Offcanvas(offcanvasEl);
-          bsOffcanvas.show();
+          // $("#offcanvasRight").offcanvas('show');
+          getCartDetails();
+
         },
         error: function (xhr, status, error) {
           console.log("Add to cart error!");
@@ -24,3 +24,18 @@ $(document).ready(function () {
     });
   }
 });
+
+function getCartDetails() {
+  fetch("?section_id=header")
+    .then((response) => response.text())
+    .then((headerData) => {
+      var cart_html = $(headerData);
+      var cart_count = $('.header-cart-count', cart_html);
+      $('.header-cart-count').replaceWith(cart_count);
+      console.log(cart_count.text());
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
+
